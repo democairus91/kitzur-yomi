@@ -1,17 +1,36 @@
 <!doctype html>
 ---
 import '@picocss/pico';
+import { getSheet } from 'opensheet';
 ---
 <html lang="en">
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width" />
 		<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+		<link rel="stylesheet" href="https://unpkg.com/pico.css/css/pico.min.css">
 		<meta name="generator" content={Astro.generator} />
 		<title>NCSY Kitzur Yomi</title>
 	</head>
 	<body>
 		<slot />
+
+		<script>
+			const sheetId = '1faQE414tZXChsmPp9Uol_pAS19aM3xL8SuCONQtslPg'; 
+			const sheetName = 'Sheet1';
+		
+			async function fetchData() {
+			  try {
+				const data = await getSheet(sheetId, sheetName);
+				Astro.setProps({ sheetData: data }); 
+			  } catch (error) {
+				console.error('Error fetching data:', error);
+			  }
+			}
+		
+			fetchData();
+		  </script>
+		  
 	</body>
 </html>
 
